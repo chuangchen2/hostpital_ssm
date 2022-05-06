@@ -24,5 +24,5 @@ public interface AdminService {
 
      String login(Admin admin) throws Exception;
 
-    Admin getAdminByToken(String token) throws Exception;
+     Admin getAdminByToken(String token) throws Exception;
 }

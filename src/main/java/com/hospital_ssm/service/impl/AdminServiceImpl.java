@@ -36,7 +36,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Integer updateAdmin(Admin admin) {
-        return adminDao.update(admin, null);
+        return adminDao.updateById(admin);
     }
 
     @Override
