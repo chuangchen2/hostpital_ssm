@@ -12,11 +12,42 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
 @RestController
 @RequestMapping("/patientInfo")
 public class PatientInfoController {
     @Autowired
+    @Qualifier(value="patientService")
     PatientService patientService;
+
+
+    //from yjb 注意findPwd页面的 确认密码的name是否与函数中参数名称相同
+    @RequestMapping(value="/findPwdCheck",method=RequestMethod.POST)
+	public String findPwdCheck(String name,String email,String password,String confirmpassword,HttpServletRequest request) {
+		//进行找回密码的信息认证，确定是否为本人
+		if(name!=null&&email!=null) {
+			Patient patient = patientService.findPwdCheck(name,email);
+			if(patient!=null) {
+				if(patient.getEmail().equals(email)&&password.equals(confirmpassword)) {
+					patientService.updatePatientPassword(patient.getId(),password);
+					request.getSession().setAttribute("findPwdSuccess", "密码修改成功！");
+					return "login";
+				}
+			}
+		}
+		request.getSession().setAttribute("findPwdMsg", "信息认证输入有误或者新密码与确认密码不一致!");
+		return "findPwd";
+	}
 
     @GetMapping("/list")
     public R fetchPatientList(@RequestParam Map<String, String> param) {
