@@ -77,7 +77,7 @@ public class AdminLoginController {
     @RequestMapping(value = "/info")
     @ResponseBody
     public R getInfo(String token) throws Exception {
-        System.out.println("getInfo被调用");
+        // System.out.println("getInfo被调用");
         Admin admin = adminService.getAdminByToken(token);
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("roles", Arrays.asList(admin.getAccount()));

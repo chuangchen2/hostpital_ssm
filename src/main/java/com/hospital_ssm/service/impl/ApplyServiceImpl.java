@@ -4,14 +4,20 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital_ssm.dao.ApplyDao;
 import com.hospital_ssm.pojo.Apply;
+import com.hospital_ssm.pojo.WorkDay;
 import com.hospital_ssm.service.ApplyService;
+import com.hospital_ssm.service.WorkDayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class ApplyServiceImpl implements ApplyService {
     @Autowired
     ApplyDao applyDao;
+    @Autowired
+    WorkDayService workDayService;
 
     @Override
     public Page<Apply> getApplies(Page<Apply> productPage, String sort, Apply condition) {
@@ -23,6 +29,9 @@ public class ApplyServiceImpl implements ApplyService {
         for (Apply item : productPage.getRecords()) {
             if (item.getAmpm().equals("上午")) {
                 switch (item.getWorktime()) {
+                    case "0" :
+                        item.setWorktime("08:30 - 09:00");
+                        break;
                     case "1" :
                         item.setWorktime("09:00 - 09:30");
                         break;
@@ -44,6 +53,9 @@ public class ApplyServiceImpl implements ApplyService {
                 }
             } else {
                 switch (item.getWorktime()) {
+                    case "0" :
+                        item.setWorktime("02:00 - 02:30");
+                        break;
                     case "1" :
                         item.setWorktime("02:30 - 03:00");
                         break;
@@ -72,6 +84,17 @@ public class ApplyServiceImpl implements ApplyService {
     public Integer handleApply(String aid, Boolean condition) {
         Apply apply = applyDao.selectById(aid);
         if (condition) {
+            if (apply.getRequest().equals("申请停诊")) {
+                WorkDay workDay = workDayService.getWorkDay(apply.getWid().toString());
+                workDay.setNsnum(0);
+                workDay.setState("停诊");
+                workDayService.updateWorkDay(workDay);
+            } else {
+                WorkDay workDay = workDayService.getWorkDay(apply.getWid().toString());
+                workDay.setNsnum(10);
+                workDay.setState("预约");
+                workDayService.updateWorkDay(workDay);
+            }
             apply.setState("同意");
         } else {
             apply.setState("取消");

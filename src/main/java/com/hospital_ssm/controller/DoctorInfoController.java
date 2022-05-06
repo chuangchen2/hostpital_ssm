@@ -4,14 +4,17 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital_ssm.pojo.Apply;
 import com.hospital_ssm.pojo.Doctor;
 import com.hospital_ssm.pojo.Patient;
+import com.hospital_ssm.pojo.WorkDay;
 import com.hospital_ssm.service.ApplyService;
 import com.hospital_ssm.service.DoctorService;
+import com.hospital_ssm.service.WorkDayService;
 import com.hospital_ssm.util.HttpCodeUtil;
 import com.hospital_ssm.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,6 +24,9 @@ public class DoctorInfoController {
     DoctorService doctorService;
     @Autowired
     ApplyService applyService;
+    @Autowired
+    WorkDayService workDayService;
+
 
     @GetMapping("/list")
     public R fetchPatientList(@RequestParam Map<String, String> param) {
@@ -49,7 +55,7 @@ public class DoctorInfoController {
     }
 
     @PostMapping("/update")
-    public R updateAdmin(@RequestBody Doctor doctor) {
+    public R updateDoctor(@RequestBody Doctor doctor) {
         doctorService.updateDoctor(doctor);
         R r = new R();
         r.setCode(Integer.valueOf(HttpCodeUtil.OK.toString()));
@@ -58,7 +64,7 @@ public class DoctorInfoController {
     }
 
     @PostMapping("/remove")
-    public R removeAdmin(@RequestBody Doctor doctor) {
+    public R removeDoctor(@RequestBody Doctor doctor) {
         if (doctorService.removeDoctor(doctor) != 0) {
             R r = new R();
             r.setCode(Integer.valueOf(HttpCodeUtil.OK.toString()));
@@ -116,5 +122,26 @@ public class DoctorInfoController {
             r.setData("操作失败！");
             return r;
         }
+    }
+
+    @GetMapping("/workday")
+    public R fetchWorkDayList(@RequestParam String did) {
+        List<WorkDay> workDays = workDayService.getWorkDays(did);
+        R r = new R();
+        r.setCode(Integer.valueOf(HttpCodeUtil.OK.toString()));
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("workDays", workDays);
+        r.setData(data);
+        return r;
+    }
+
+    @PostMapping("/workday")
+    public R updateWorkDays(@RequestBody List<WorkDay> workDays) {
+        for (WorkDay item : workDays) {
+            workDayService.updateWorkDay(item);
+        }
+        R r = new R();
+        r.setCode(Integer.valueOf(HttpCodeUtil.OK.toString()));
+        return r;
     }
 }

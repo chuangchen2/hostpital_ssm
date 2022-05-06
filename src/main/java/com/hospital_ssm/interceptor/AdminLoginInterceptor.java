@@ -19,6 +19,7 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
             r.setCode(Integer.valueOf(HttpCodeUtil.EXCEPTION.toString()));
             r.setMessage("令牌不存在，请重新登录！");
             String json = new ObjectMapper().writeValueAsString(r);
+            response.setCharacterEncoding("UTF-8");
             response.getWriter().print(json);
             return false;
         }
@@ -28,6 +29,7 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
             r.setCode(Integer.valueOf(HttpCodeUtil.EXCEPTION.toString()));
             r.setMessage("token验证失败");
             String json = new ObjectMapper().writeValueAsString(r);
+            response.setCharacterEncoding("UTF-8");
             response.getWriter().print(json);
             return false;
         }

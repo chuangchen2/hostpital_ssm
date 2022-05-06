@@ -7,9 +7,11 @@ import com.hospital_ssm.dao.ApplyDao;
 import com.hospital_ssm.pojo.Admin;
 import com.hospital_ssm.pojo.Apply;
 import com.hospital_ssm.pojo.Patient;
+import com.hospital_ssm.pojo.WorkDay;
 import com.hospital_ssm.service.AdminService;
 import com.hospital_ssm.service.ApplyService;
 import com.hospital_ssm.service.PatientService;
+import com.hospital_ssm.service.WorkDayService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,6 +26,8 @@ class HospitalSsmApplicationTests {
     ApplyDao applyDao;
     @Autowired
     ApplyService applyService;
+    @Autowired
+    WorkDayService workDayService;
 
     @Test
     void contextLoads() {
@@ -42,6 +46,12 @@ class HospitalSsmApplicationTests {
         apply.setOffice("");
         Page<Apply> applies = applyService.getApplies(new Page<>(1, 5), "+id", apply);
         System.out.println(applies.getRecords());
+    }
+
+    @Test
+    void testApplyService2() {
+        List<WorkDay> workDays = workDayService.getWorkDays("1");
+        System.out.println(workDays);
     }
 
 

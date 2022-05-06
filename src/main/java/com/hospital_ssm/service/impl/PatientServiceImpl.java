@@ -7,8 +7,10 @@ import com.hospital_ssm.pojo.Patient;
 import com.hospital_ssm.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class PatientServiceImpl implements PatientService {
     @Autowired
     PatientDao patientDao;
