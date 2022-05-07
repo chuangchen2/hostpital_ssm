@@ -39,7 +39,7 @@ public class PatientInfoController {
 			Patient patient = patientService.findPwdCheck(name,email);
 			if(patient!=null) {
 				if(patient.getEmail().equals(email)&&password.equals(confirmpassword)) {
-					patientService.updatePatientPassword(patient.getId(),password);
+					patientService.updatePatientPassword(patient.getPid().toString(),password);
 					request.getSession().setAttribute("findPwdSuccess", "密码修改成功！");
 					return "login";
 				}

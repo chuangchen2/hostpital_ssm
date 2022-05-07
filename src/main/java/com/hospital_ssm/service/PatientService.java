@@ -17,7 +17,6 @@ public interface PatientService {
     //依据id的五个基本方法
 	public int addPatient(Patient patient) ;
 	public int deletePatient(Integer id);
-	public int updatePatient(Patient patient);
 	public Patient selectOne(Integer id);
 	public List<Patient> findAll() ;
 	

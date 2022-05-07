@@ -13,4 +13,5 @@ public class WebExceptionHandler {
         e.printStackTrace();
         return new R(Integer.valueOf(HttpCodeUtil.EXCEPTION.toString()), null, e.getMessage());
     }
+
 }

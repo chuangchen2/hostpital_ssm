@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Propagation;
 
+import java.util.List;
+
 @Service("patientService")
 @Transactional(propagation=Propagation.REQUIRED)
 public class PatientServiceImpl implements PatientService {
@@ -53,13 +55,6 @@ public class PatientServiceImpl implements PatientService {
 		@Override
 		public int deletePatient(Integer id) {
 			return patientDao.deletePatient();
-		}
-
-
-		//更新患者
-		@Override
-		public int updatePatient(Patient patient) {
-			return patientDao.updatePatient(patient);
 		}
 
 
