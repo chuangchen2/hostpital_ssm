@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-@RestController
+@Controller
 @RequestMapping("/patientInfo")
 public class PatientInfoController {
     @Autowired
@@ -32,7 +32,7 @@ public class PatientInfoController {
 
 
     //from yjb 注意findPwd页面的 确认密码的name是否与函数中参数名称相同
-    @RequestMapping(value="/findPwdCheck",method=RequestMethod.POST)
+    @RequestMapping(value="/findPwdCheck",method=RequestMethod.GET)
 	public String findPwdCheck(String name,String email,String password,String confirmpassword,HttpServletRequest request) {
 		//进行找回密码的信息认证，确定是否为本人
 		if(name!=null&&email!=null) {
@@ -50,6 +50,7 @@ public class PatientInfoController {
 	}
 
     @GetMapping("/list")
+    @ResponseBody
     public R fetchPatientList(@RequestParam Map<String, String> param) {
         Page<Patient> page = new Page<>(Integer.valueOf(param.get("page")), Integer.valueOf(param.get("limit")));
         patientService.getPatients(page, param.get("sort"), param.get("account"));
@@ -63,6 +64,7 @@ public class PatientInfoController {
     }
 
     @PostMapping("/create")
+    @ResponseBody
     public R createPatient(@RequestBody Patient patient) {
         patientService.insertPatient(patient);
         R r = new R();
@@ -72,6 +74,7 @@ public class PatientInfoController {
     }
 
     @PostMapping("/update")
+    @ResponseBody
     public R updateAdmin(@RequestBody Patient patient) {
         patientService.updatePatient(patient);
         R r = new R();
@@ -81,6 +84,7 @@ public class PatientInfoController {
     }
 
     @PostMapping("/remove")
+    @ResponseBody
     public R removeAdmin(@RequestBody Patient patient) {
         if (patientService.removePatient(patient) != 0) {
             R r = new R();

@@ -6,6 +6,8 @@ import com.hospital_ssm.pojo.Doctor;
 public interface DoctorService {
     Page<Doctor> getDoctors(Page<Doctor> productPage, String sort, Doctor condition);
 
+    Doctor getDoctorByID(String id);
+
     Integer insertDoctor(Doctor doctor);
 
     Integer updateDoctor(Doctor doctor);

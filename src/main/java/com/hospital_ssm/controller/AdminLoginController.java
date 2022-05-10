@@ -81,7 +81,7 @@ public class AdminLoginController {
         Admin admin = adminService.getAdminByToken(token);
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("roles", Arrays.asList(admin.getAccount()));
-        hashMap.put("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+        hashMap.put("avatar", "http://127.0.0.1:38080/images/fd71da8f634c9b5d5ecccf74a2de4b3.jpg");
         hashMap.put("name", admin.getName());
         hashMap.put("introduction", "I am a super administrator");
         R r = new R();

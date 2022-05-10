@@ -33,6 +33,11 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public Doctor getDoctorByID(String id) {
+        return doctorDao.selectById(id);
+    }
+
+    @Override
     public Integer insertDoctor(Doctor doctor) {
         if (doctor.getPicpath() == null || doctor.getPicpath().equals("")) {
             doctor.setPicpath("/images/docpic/default.jpg");
