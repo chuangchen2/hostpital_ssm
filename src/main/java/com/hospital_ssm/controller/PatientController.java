@@ -44,9 +44,7 @@ public class PatientController {
 
     @RequestMapping("/order")
     public ModelAndView order(HttpServletRequest request, HttpServletResponse response) {
-        // TODO
-        // Patient patient = (Patient) request.getSession().getAttribute("patient");
-        Patient patient = new Patient();
+        Patient patient = (Patient) request.getSession().getAttribute("patient");
         patient.setPid(1);
         String wid = request.getParameter("wid");
         String did = request.getParameter("did");

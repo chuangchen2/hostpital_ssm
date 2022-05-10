@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+{
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+#tablebg{
+	width:80%;
+	background:linear-gradient(120deg,#e0c3fc 0%, #8ec5fc 100%) no-repeat;/*  rgb(144,129,241); */
+	align:center;
+}
+#trbg{
+	height:70px;
+	text-align:center;
+}
