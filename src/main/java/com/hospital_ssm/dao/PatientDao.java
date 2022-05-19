@@ -26,7 +26,7 @@ public interface PatientDao extends BaseMapper<Patient> {
 	public int updatePatient(Patient patient);
 	
 	
-	@Select("select * from patient where id = #{id}")
+	@Select("select * from patient where pid = #{id}")
 	@ResultType(Patient.class)
 	public Patient selectOne(Integer id);
 	

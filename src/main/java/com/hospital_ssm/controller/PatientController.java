@@ -2,6 +2,7 @@ package com.hospital_ssm.controller;
 
 import com.hospital_ssm.pojo.*;
 import com.hospital_ssm.service.DoctorService;
+import com.hospital_ssm.service.PatientService;
 import com.hospital_ssm.service.RecodeService;
 import com.hospital_ssm.service.WorkDayService;
 import com.hospital_ssm.util.Util;
@@ -25,6 +26,8 @@ public class PatientController {
     WorkDayService workDayService;
     @Autowired
     RecodeService recodeService;
+    @Autowired
+    PatientService patientService;
 
 
     @GetMapping("/showWeek")
@@ -44,7 +47,10 @@ public class PatientController {
 
     @RequestMapping("/order")
     public ModelAndView order(HttpServletRequest request, HttpServletResponse response) {
-        Patient patient = (Patient) request.getSession().getAttribute("patient");
+        // 未整合，使用默认用户挂号
+        //Patient patient = (Patient) request.getSession().getAttribute("patient");
+        // TODO
+        Patient patient = patientService.selectOne(1);
         patient.setPid(1);
         String wid = request.getParameter("wid");
         String did = request.getParameter("did");
