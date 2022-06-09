@@ -6,6 +6,7 @@ import com.hospital_ssm.pojo.WorkDay;
 import com.hospital_ssm.service.WorkDayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ public class WorkDayServiceImpl implements WorkDayService {
     WorkDayDao workDayDao;
 
     @Override
+    @Cacheable
     public WorkDay getWorkDay(String wid) {
         return workDayDao.selectById(wid);
     }
@@ -33,16 +35,19 @@ public class WorkDayServiceImpl implements WorkDayService {
     }
 
     @Override
+    @CacheEvict(allEntries = true)
     public Integer updateWorkDay(WorkDay workDay) {
         return workDayDao.updateById(workDay);
     }
 
     @Override
+    @CacheEvict(allEntries = true)
     public Integer insertWorkDay(WorkDay workDay) {
         return workDayDao.insert(workDay);
     }
 
     @Override
+    @CacheEvict(allEntries = true)
     public Integer removeWorkDay(WorkDay workDay) {
         return workDayDao.deleteById(workDay.getWid());
     }

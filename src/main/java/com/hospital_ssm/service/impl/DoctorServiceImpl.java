@@ -9,6 +9,9 @@ import com.hospital_ssm.pojo.WorkDay;
 import com.hospital_ssm.service.DoctorService;
 import com.hospital_ssm.service.WorkDayService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +19,7 @@ import java.util.List;
 
 @Service
 @Transactional
+@CacheConfig(cacheNames = {"doctor"})
 public class DoctorServiceImpl implements DoctorService {
     @Autowired
     DoctorDao doctorDao;
@@ -23,6 +27,7 @@ public class DoctorServiceImpl implements DoctorService {
     WorkDayService workDayService;
 
     @Override
+    @Cacheable
     public Page<Doctor> getDoctors(Page<Doctor> productPage, String sort, Doctor condition) {
         QueryWrapper<Doctor> queryWrapper = new QueryWrapper<>();
         queryWrapper.like(!condition.getDname().equals(""), "dname", condition.getDname())
@@ -33,11 +38,13 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    @Cacheable
     public Doctor getDoctorByID(String id) {
         return doctorDao.selectById(id);
     }
 
     @Override
+    @Cacheable
     public Integer insertDoctor(Doctor doctor) {
         if (doctor.getPicpath() == null || doctor.getPicpath().equals("")) {
             doctor.setPicpath("/images/docpic/default.jpg");
@@ -58,11 +65,13 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    @CacheEvict(allEntries = true)
     public Integer updateDoctor(Doctor doctor) {
         return doctorDao.updateById(doctor);
     }
 
     @Override
+    @CacheEvict(allEntries = true)
     public  Integer removeDoctor(Doctor doctor) {
         List<WorkDay> workDays = workDayService.getWorkDays(doctor.getDid().toString());
         for (WorkDay item : workDays) {
@@ -72,6 +81,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    @Cacheable
     public Page<Doctor> getDoctorByOfficeAndName(Page<Doctor> productPage, String office, String name) {
         QueryWrapper<Doctor> queryWrapper = new QueryWrapper<>();
         queryWrapper.like(!"".equals("office"), "office", office)
