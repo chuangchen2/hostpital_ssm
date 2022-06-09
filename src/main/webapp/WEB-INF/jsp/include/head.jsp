@@ -16,16 +16,16 @@
                     <div>
                         <c:if test="${sessionScope.patient == null}">
                             <a class="navbar-brand1" style="font-size: 12px;"
-                               href="login.jsp"><strong>登录</strong></a>
+                               href="login"><strong>登录</strong></a>
                             <a class="navbar-brand1" style="font-size: 12px;"
-                               href="register.jsp"><strong>注册</strong></a>
+                               href="register"><strong>注册</strong></a>
                         </c:if>
                         <c:if test="${sessionScope.patient != null}">
                             <a class="navbar-brand1" style="font-size: 12px;" href=""><strong><font color="#fff">欢迎您,${sessionScope.patient.name }</font></strong></a>
                             <a class="navbar-brand1" style="font-size: 12px;"
                                href="logout"><strong>注销</strong></a>
                         </c:if>
-                            <a class="navbar-brand1" style="font-size: 12px;" href="help.jsp"><strong>帮助中心</strong></a>
+                            <a class="navbar-brand1" style="font-size: 12px;" href="help"><strong>帮助中心</strong></a>
                     </div>
                 </li>
             </ul>

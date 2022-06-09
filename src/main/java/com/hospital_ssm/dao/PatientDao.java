@@ -51,4 +51,13 @@ public interface PatientDao extends BaseMapper<Patient> {
 	//根据id和键入的password 修改对应id患者的密码(findPwk)
 	@Update("update patient set password=#{password} where id=#{id}")
 	public int updatePatientPassword(@Param("id")String id,@Param("password")String password);
+
+	@Select("SELECT * FROM patient WHERE account=#{account}")
+	List<Patient> selectByAccount(@Param("account") String account);
+
+	@Insert("INSERT INTO `patient` VALUES (null,#{account},#{email},#{password},#{name},100)")
+	int insertPatient(@Param("account") String account,@Param("email") String email,@Param("password") String password,@Param("name") String name);
+
+	@Update("UPDATE `patient` SET password=#{password} WHERE account = #{account}")
+	int updatePasswordByaccount(@Param("password") String password,@Param("account") String account);
 }

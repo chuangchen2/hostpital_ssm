@@ -145,7 +145,7 @@
 
     </div>
     <div class="form-bottom">
-        <form role="form" action="login" method="post" class="login-form">
+        <form role="form" action="doLogin" method="post" class="login-form">
             <div class="form-group col-xs-12">
                 <label class="sr-only" ></label>账号(*):<input
                     style="font-weight: bold" type="text" name="account"
@@ -162,8 +162,8 @@
                 <button type="submit" class="btn" wid="btn">立即登录</button>
             </div>
         </form>
-        <span><a href="findPwd.jsp">找回密码</a></span> <span><a
-            href="register.jsp" class="pull-right">用户注册</a></span>
+        <span><a href="findPwd">找回密码</a></span> <span><a
+            href="register" class="pull-right">用户注册</a></span>
     </div>
 
     <script>

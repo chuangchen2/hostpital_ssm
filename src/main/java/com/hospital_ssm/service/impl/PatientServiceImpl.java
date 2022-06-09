@@ -93,13 +93,16 @@ public class PatientServiceImpl implements PatientService {
 			  return patientDao.updatePatientPassword(id,password);
 		 }
 
+	@Override
+	public List<Patient> getPatientByAccount(String account) {
+		List<Patient> list=null;
+		list=patientDao.selectByAccount(account);
+		return list;
+	}
 
-		public PatientDao getPatientDao() {
-			return patientDao;
-		}
-
-
-		public void setPatientDao(PatientDao patientDao) {
-			this.patientDao = patientDao;
-		} 
+	@Override
+	public int updatePasswordByaccount(String password,String account) {
+		int k=patientDao.updatePasswordByaccount(password,account);
+		return k;
+	}
 }

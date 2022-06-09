@@ -5,6 +5,8 @@ import com.hospital_ssm.dao.WorkDayDao;
 import com.hospital_ssm.pojo.WorkDay;
 import com.hospital_ssm.service.WorkDayService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +14,7 @@ import java.util.List;
 
 @Service
 @Transactional
+@CacheConfig(cacheNames = {"workDay"})
 public class WorkDayServiceImpl implements WorkDayService {
     @Autowired
     WorkDayDao workDayDao;
@@ -22,6 +25,7 @@ public class WorkDayServiceImpl implements WorkDayService {
     }
 
     @Override
+    @Cacheable
     public List<WorkDay> getWorkDays(String did) {
         QueryWrapper<WorkDay> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("did", did);

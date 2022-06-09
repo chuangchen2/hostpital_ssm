@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.hospital_ssm.interceptor.AdminLoginInterceptor;
+import com.hospital_ssm.interceptor.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -64,5 +65,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(new AdminLoginInterceptor())
                 .addPathPatterns("/adminInfo", "/doctorInfo", "/patientInfo", "/upload")
                 .excludePathPatterns("/admin/**", "/", "/static/**");
+        registry.addInterceptor(new LoginInterceptor())
+                .addPathPatterns("/modifyPwd", "/integrity", "/order", "/orderList");
     }
 }

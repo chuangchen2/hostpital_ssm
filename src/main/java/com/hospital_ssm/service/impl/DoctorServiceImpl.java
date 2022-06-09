@@ -70,4 +70,12 @@ public class DoctorServiceImpl implements DoctorService {
         }
         return doctorDao.deleteById(doctor.getDid());
     }
+
+    @Override
+    public Page<Doctor> getDoctorByOfficeAndName(Page<Doctor> productPage, String office, String name) {
+        QueryWrapper<Doctor> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like(!"".equals("office"), "office", office)
+                .like(!"".equals("name"), "dname", name);
+        return doctorDao.selectPage(productPage, queryWrapper);
+    }
 }

@@ -28,4 +28,8 @@ public interface PatientService {
 	public Patient findPwdCheck(String name,String email);
 	//根据id和键入的password 修改对应id患者的密码(findPwk)
 	public int updatePatientPassword(String id,String password);
+
+	List<Patient> getPatientByAccount(String account);
+
+	int updatePasswordByaccount(String password, String account);
 }

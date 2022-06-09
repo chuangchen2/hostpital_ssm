@@ -13,4 +13,6 @@ public interface DoctorService {
     Integer updateDoctor(Doctor doctor);
 
     Integer removeDoctor(Doctor doctor);
+
+    Page<Doctor> getDoctorByOfficeAndName(Page<Doctor> productPage, String office, String name);
 }

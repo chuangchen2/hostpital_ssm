@@ -8,12 +8,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @TableName("workday")
-public class WorkDay {
+public class WorkDay implements Serializable {
     @TableId(type = IdType.AUTO)
     private Integer wid;
     private Integer did;

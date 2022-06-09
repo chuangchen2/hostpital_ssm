@@ -38,6 +38,10 @@ public class PatientController {
         }
         Doctor doctor = doctorService.getDoctorByID(did);
         List<WorkDay> workDays = workDayService.getWorkDays(did);
+        for (WorkDay workDay : workDays) {
+            List<Recode> recodes = recodeService.getRecodeByWordDayAndVisitnoon(workDay);
+            workDay.setNsnum(workDay.getNsnum() - recodes.size());
+        }
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("doctorInfo");
         modelAndView.addObject("workDays", workDays);
@@ -47,11 +51,8 @@ public class PatientController {
 
     @RequestMapping("/order")
     public ModelAndView order(HttpServletRequest request, HttpServletResponse response) {
-        // 未整合，使用默认用户挂号
-        //Patient patient = (Patient) request.getSession().getAttribute("patient");
-        // TODO
-        Patient patient = patientService.selectOne(1);
-        patient.setPid(1);
+        Patient patient = (Patient) request.getSession().getAttribute("patient");
+
         String wid = request.getParameter("wid");
         String did = request.getParameter("did");
         String rid = request.getParameter("rid");
@@ -71,6 +72,7 @@ public class PatientController {
                 if (recode == null) {
                     recode = new Recode();
                     recode.setPid(patient.getPid());
+                    recode.setWid(Integer.valueOf(wid));
                     recode.setDid(Integer.valueOf(did));
                     recode.setOrdertime(new Timestamp(new Date().getTime()).toString());
                     recode.setSerialnumber(numSource1.getSerialnumber());
@@ -149,7 +151,10 @@ public class PatientController {
     }
 
     @RequestMapping("/orderList")
-    public ModelAndView orderList() {
+    public ModelAndView orderList(HttpServletRequest req) {
+        Patient patient = (Patient) req.getSession().getAttribute("patient");
+        List<Map<String, String>> list = recodeService.getRecodeByPatientID(patient.getPid().toString());
+        req.setAttribute("list", list);
         return new ModelAndView("orderList");
     }
 }

@@ -179,8 +179,8 @@
                 <button type="submit" class="btn" id="btn">立即注册</button>
             </div>
         </form>
-        <span><a href="findPwd.jsp">找回密码</a></span> <span><a
-            href="login.jsp" class="pull-right">用户登录</a></span>
+        <span><a href="findPwd">找回密码</a></span> <span><a
+            href="login" class="pull-right">用户登录</a></span>
     </div>
 
     <script>

@@ -7,11 +7,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Recode {
+public class Recode implements Serializable {
     @TableId(type = IdType.AUTO)
     private Integer rid;
     private Integer pid;

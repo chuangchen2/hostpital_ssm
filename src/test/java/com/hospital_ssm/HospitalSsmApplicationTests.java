@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hospital_ssm.dao.AdminDao;
 import com.hospital_ssm.dao.ApplyDao;
+import com.hospital_ssm.dao.RecodeDao;
 import com.hospital_ssm.pojo.Admin;
 import com.hospital_ssm.pojo.Apply;
 import com.hospital_ssm.pojo.Patient;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 class HospitalSsmApplicationTests {
@@ -28,6 +30,8 @@ class HospitalSsmApplicationTests {
     ApplyService applyService;
     @Autowired
     WorkDayService workDayService;
+    @Autowired
+    RecodeDao recodeDao;
 
     @Test
     void contextLoads() {
@@ -52,6 +56,12 @@ class HospitalSsmApplicationTests {
     void testApplyService2() {
         List<WorkDay> workDays = workDayService.getWorkDays("1");
         System.out.println(workDays);
+    }
+
+    @Test
+    void recodeDaoTest() {
+        List<Map<String, String>> maps = recodeDao.selectRecodeByPatientID("1");
+        System.out.println(maps);
     }
 
 

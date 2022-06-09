@@ -1,5 +1,5 @@
 server:
-  port: 38080
+  port: 8080
 
 spring:
   datasource:
@@ -12,21 +12,15 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
-#  redis:
-#    host: localhost
-#    port: 36381
-#    jedis:
-#      pool:
-#        max-idle: 16
-#        min-idle: 0
-#        max-active: 8
-#        max-wait: -1
-#        timeout: 0
+  redis:
+    host: 192.168.145.142
+    port: 6379
 
 
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    cache-enabled: true
 
 allowed:
   origin: http://localhost:9527
@@ -40,3 +34,4 @@ jwt:
 upload:
   file:
     path: E:/static/
+
